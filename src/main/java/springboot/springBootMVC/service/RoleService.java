@@ -1,14 +1,12 @@
 package springboot.springBootMVC.service;
 
-
+import javassist.NotFoundException;
 import springboot.springBootMVC.model.Role;
-import springboot.springBootMVC.model.User;
-
 import java.util.List;
 
 public interface RoleService {
 
-    List<User> getAllRoles();
+    List<Role> getAllRoles();
 
     void add(Role role);
 
@@ -16,5 +14,5 @@ public interface RoleService {
 
     Role getById(long id);
 
-    Role getByName(String name);
+    Role getByName(String name) throws NotFoundException;
 }

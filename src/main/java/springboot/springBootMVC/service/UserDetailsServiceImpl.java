@@ -1,5 +1,6 @@
 package springboot.springBootMVC.service;
 
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +14,7 @@ import springboot.springBootMVC.model.User;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserDetailsServiceImpl(UserService userService) {
@@ -22,7 +23,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userService.getUser(s);
+        User user = null;
+        try {
+            user = userService.getByName(s);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         if (user == null) {
             throw new UsernameNotFoundException("Unknown user: " + s);
         }

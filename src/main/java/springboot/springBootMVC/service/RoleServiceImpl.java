@@ -1,48 +1,54 @@
 package springboot.springBootMVC.service;
 
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import springboot.springBootMVC.dao.RoleDAO;
+import springboot.springBootMVC.dao.RoleRepository;
 import springboot.springBootMVC.model.Role;
-import springboot.springBootMVC.model.User;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Transactional
 public class RoleServiceImpl implements RoleService {
 
-    private RoleDAO roleDAO;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public void setRole(RoleDAO roleDAO) {
-        this.roleDAO = roleDAO;
+    public RoleServiceImpl(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
-
     @Override
-    public List<User> getAllRoles() {
-        return roleDAO.getAllRoles();
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
     }
 
     @Override
     public void add(Role role) {
-        roleDAO.add(role);
+        roleRepository.save(role);
     }
 
     @Override
     public void edit(Role role) {
-        roleDAO.edit(role);
+        roleRepository.save(role);
     }
 
     @Override
     public Role getById(long id) {
-        return roleDAO.getById(id);
+        Role role = null;
+        Optional<Role> opt = roleRepository.findById(id);
+        if (opt.isPresent()) {
+            role = opt.get();
+        }
+        return role;
     }
 
     @Override
-    public Role getByName(String name) {
-        return roleDAO.getByName(name);
+    public Role getByName(String name) throws NotFoundException {
+        Role role = roleRepository.findByName(name);
+        if (role == null) {
+            throw new NotFoundException(name);
+        }
+        return role;
     }
 }

@@ -1,5 +1,6 @@
 package springboot.springBootMVC.controller;
 
+import javassist.NotFoundException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,7 +9,6 @@ import springboot.springBootMVC.model.Role;
 import springboot.springBootMVC.model.User;
 import springboot.springBootMVC.service.RoleService;
 import springboot.springBootMVC.service.UserService;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +45,7 @@ public class UsersController {
 
     @PostMapping(value = "user/new")
     public String newUser(@ModelAttribute User user,
-                          @RequestParam(value = "roless") String[] role) {
+                          @RequestParam(value = "roless") String[] role) throws NotFoundException {
         Set<Role> rolesSet = new HashSet<>();
         for (String roles : role) {
             rolesSet.add(roleService.getByName(roles));
@@ -63,7 +63,7 @@ public class UsersController {
     }
 
     @PostMapping(value = "user/edit/{id}")
-    public String editUser(@ModelAttribute User user, @RequestParam(value = "roless") String [] role) {
+    public String editUser(@ModelAttribute User user, @RequestParam(value = "roless") String[] role) throws NotFoundException {
         Set<Role> rolesSet = new HashSet<>();
         for (String roles : role) {
             rolesSet.add((roleService.getByName(roles)));

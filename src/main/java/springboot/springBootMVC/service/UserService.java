@@ -1,9 +1,10 @@
 package springboot.springBootMVC.service;
 
+import javassist.NotFoundException;
 import springboot.springBootMVC.model.User;
 import java.util.List;
 
-public interface UserService {
+public interface UserService  {
 
     List<User> getAllUsers();
 
@@ -15,5 +16,5 @@ public interface UserService {
 
     User getById(long id);
 
-    User getUser(String userName);
+    User getByName(String name) throws NotFoundException;
 }
