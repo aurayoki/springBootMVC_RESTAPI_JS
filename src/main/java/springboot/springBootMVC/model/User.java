@@ -21,8 +21,14 @@ public class User implements UserDetails {
     @Column(name = "username", unique = true)
     private String username;
     @NonNull
+    @Column(name = "lastname")
+    private String lastname;
+    @NonNull
     @Column(name = "password")
     private String password;
+    @NonNull
+    @Column(name = "age")
+    private byte age;
     @NonNull
     @Column(name = "email")
     private String email;
