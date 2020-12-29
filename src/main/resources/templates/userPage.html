@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,9 +28,11 @@
         <div class="col-2 px-0">
             <br>
             <ul class="nav nav-pills flex-column">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="nav-item">
                     <a href="/admin" class="nav-link">Admin</a>
                 </li>
+                </div>
                 <li class="nav-item">
                     <a href="/user" class="nav-link active">User</a>
                 </li>
