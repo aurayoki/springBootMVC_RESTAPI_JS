@@ -37,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
                 .usernameParameter("email")
                 .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенеправления по ролям
                 .permitAll()
@@ -49,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable();
     }
+//    loginPage("/login")
     // конфигурация для прохождения аутентификации
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
