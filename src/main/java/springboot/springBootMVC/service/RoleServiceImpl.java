@@ -3,12 +3,14 @@ package springboot.springBootMVC.service;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import springboot.springBootMVC.dao.RoleRepository;
 import springboot.springBootMVC.model.Role;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
